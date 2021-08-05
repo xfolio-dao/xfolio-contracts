@@ -1,0 +1,6 @@
+#Webstorm folder
+/.idea
+
+#Node modules and more
+/node_modules
+/build
