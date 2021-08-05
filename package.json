@@ -3,6 +3,8 @@
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@typechain/ethers-v5": "^7.0.1",
+    "@typechain/hardhat": "^2.2.0",
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.4.12",
@@ -10,6 +12,10 @@
     "ethers": "^5.4.4",
     "hardhat": "^2.5.0",
     "ts-node": "^10.1.0",
+    "typechain": "^5.1.2",
     "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.2.0"
   }
 }
