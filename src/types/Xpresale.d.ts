@@ -11,6 +11,7 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
+  PayableOverrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -20,30 +21,27 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface XpresaleInterface extends ethers.utils.Interface {
   functions: {
+    "buyTokens(address)": FunctionFragment;
+    "rate()": FunctionFragment;
     "tokenContract()": FunctionFragment;
-    "tokenPrice()": FunctionFragment;
-    "tokensSold()": FunctionFragment;
+    "weiRaised()": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "buyTokens", values: [string]): string;
+  encodeFunctionData(functionFragment: "rate", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "tokenContract",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "tokenPrice",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "tokensSold",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "weiRaised", values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: "buyTokens", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "rate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "tokenContract",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "tokenPrice", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tokensSold", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "weiRaised", data: BytesLike): Result;
 
   events: {
     "Purchase(address,uint256)": EventFragment;
@@ -96,25 +94,37 @@ export class Xpresale extends BaseContract {
   interface: XpresaleInterface;
 
   functions: {
+    buyTokens(
+      _beneficiary: string,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    rate(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     tokenContract(overrides?: CallOverrides): Promise<[string]>;
 
-    tokenPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    tokensSold(overrides?: CallOverrides): Promise<[BigNumber]>;
+    weiRaised(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
+
+  buyTokens(
+    _beneficiary: string,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  rate(overrides?: CallOverrides): Promise<BigNumber>;
 
   tokenContract(overrides?: CallOverrides): Promise<string>;
 
-  tokenPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-  tokensSold(overrides?: CallOverrides): Promise<BigNumber>;
+  weiRaised(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
+    buyTokens(_beneficiary: string, overrides?: CallOverrides): Promise<void>;
+
+    rate(overrides?: CallOverrides): Promise<BigNumber>;
+
     tokenContract(overrides?: CallOverrides): Promise<string>;
 
-    tokenPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-    tokensSold(overrides?: CallOverrides): Promise<BigNumber>;
+    weiRaised(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -128,18 +138,28 @@ export class Xpresale extends BaseContract {
   };
 
   estimateGas: {
+    buyTokens(
+      _beneficiary: string,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    rate(overrides?: CallOverrides): Promise<BigNumber>;
+
     tokenContract(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tokenPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-    tokensSold(overrides?: CallOverrides): Promise<BigNumber>;
+    weiRaised(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    buyTokens(
+      _beneficiary: string,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    rate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     tokenContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    tokenPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    tokensSold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    weiRaised(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

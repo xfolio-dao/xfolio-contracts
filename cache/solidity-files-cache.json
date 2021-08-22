@@ -755,8 +755,8 @@
       ]
     },
     "C:\\Users\\Daniel\\WebstormProjects\\xfolioContracts\\contracts\\Xpresale.sol": {
-      "lastModificationDate": 1628518864863,
-      "contentHash": "2d28dbc3a1dc884dc33f233cf43ed2ec",
+      "lastModificationDate": 1629638710732,
+      "contentHash": "40396361259379b54ea16cc3b7138cb5",
       "sourceName": "contracts/Xpresale.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -781,7 +781,8 @@
         }
       },
       "imports": [
-        "./XfolioToken.sol"
+        "./XfolioToken.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -791,8 +792,8 @@
       ]
     },
     "C:\\Users\\Daniel\\WebstormProjects\\xfolioContracts\\contracts\\Xvault.sol": {
-      "lastModificationDate": 1629199330464,
-      "contentHash": "82fec980ba058552bb074968d1b5263b",
+      "lastModificationDate": 1629542948428,
+      "contentHash": "d1e294f79b9ea78371a7cebef2d3fb24",
       "sourceName": "contracts/Xvault.sol",
       "solcConfig": {
         "version": "0.8.4",

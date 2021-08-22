@@ -104,11 +104,13 @@ interface XvaultInterface extends ethers.utils.Interface {
     "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
     "RoleGranted(bytes32,address,address)": EventFragment;
     "RoleRevoked(bytes32,address,address)": EventFragment;
+    "XFLTransfer(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "XFLTransfer"): EventFragment;
 }
 
 export class Xvault extends BaseContract {
@@ -313,6 +315,14 @@ export class Xvault extends BaseContract {
     ): TypedEventFilter<
       [string, string, string],
       { role: string; account: string; sender: string }
+    >;
+
+    XFLTransfer(
+      recipient?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { recipient: string; amount: BigNumber }
     >;
   };
 

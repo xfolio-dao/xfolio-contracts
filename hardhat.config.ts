@@ -10,7 +10,7 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
 
   for (const account of accounts) {
     const accountBalance = await account.getBalance();
-    console.log(account.address, accountBalance.toString());
+    console.log(account.address, hre.ethers.utils.formatEther(accountBalance));
   }
 });
 

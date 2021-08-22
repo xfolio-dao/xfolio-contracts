@@ -3,7 +3,6 @@ import { expect } from "chai";
 import {Contract, ContractFactory, Signer} from "ethers";
 // import {XVault, XVault__factory} from "../src/types";
 import {it} from "mocha";
-import exp from "constants";
 
 describe("Xvault", () => {
     let accounts: Signer[];
@@ -16,7 +15,6 @@ describe("Xvault", () => {
     beforeEach(async () => {
         accounts = await ethers.getSigners();
         const admin = accounts[0];
-        console.log(adminAddress);
         XfolioToken = await ethers.getContractFactory("XfolioToken");
         Xvault = await ethers.getContractFactory("Xvault");
         xfolioToken = await XfolioToken.deploy(initialSupply);
