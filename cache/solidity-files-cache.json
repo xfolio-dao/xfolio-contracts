@@ -791,6 +791,80 @@
       "artifacts": [
         "Xpresale"
       ]
+    },
+    "/home/exakoss/projects/xfolio-contracts/contracts/XpresaleUSDC.sol": {
+      "lastModificationDate": 1630694959561,
+      "contentHash": "d637ad26fc8bbd2b3e9fa3c4a392f443",
+      "sourceName": "contracts/XpresaleUSDC.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./XfolioToken.sol",
+        "./SampleUSDC.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "XpresaleUSDC"
+      ]
+    },
+    "/home/exakoss/projects/xfolio-contracts/contracts/SampleUSDC.sol": {
+      "lastModificationDate": 1630690693620,
+      "contentHash": "d9c272f884ffd04de679a65109ff59cd",
+      "sourceName": "contracts/SampleUSDC.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.2"
+      ],
+      "artifacts": [
+        "SampleUSDC"
+      ]
     }
   }
 }

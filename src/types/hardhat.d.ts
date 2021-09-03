@@ -61,6 +61,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Greeter__factory>;
     getContractFactory(
+      name: "SampleUSDC",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SampleUSDC__factory>;
+    getContractFactory(
       name: "XfolioToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.XfolioToken__factory>;
@@ -68,6 +72,10 @@ declare module "hardhat/types/runtime" {
       name: "Xpresale",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Xpresale__factory>;
+    getContractFactory(
+      name: "XpresaleUSDC",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.XpresaleUSDC__factory>;
     getContractFactory(
       name: "Xvault",
       signerOrOptions?: ethers.Signer | FactoryOptions
