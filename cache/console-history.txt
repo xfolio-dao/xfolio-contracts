@@ -1,8 +1,0 @@
-accounts[0]
-accounts
-const accounts = await ethers.getSigners();
-ethers.getSigners()
-hre
-ethers
-accounts[0]
-accounts
