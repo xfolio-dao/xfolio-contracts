@@ -9,3 +9,7 @@
 
 #Environmental files
 .env
+
+#Hardhat generated files
+/artifacts
+/cache
