@@ -13,6 +13,22 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "AccessControlUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AccessControlUpgradeable__factory>;
+    getContractFactory(
+      name: "IAccessControlUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IAccessControlUpgradeable__factory>;
+    getContractFactory(
+      name: "ERC165Upgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC165Upgradeable__factory>;
+    getContractFactory(
+      name: "IERC165Upgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC165Upgradeable__factory>;
+    getContractFactory(
       name: "AccessControl",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.AccessControl__factory>;
@@ -65,6 +81,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.SampleUSDC__factory>;
     getContractFactory(
+      name: "TimeLock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TimeLock__factory>;
+    getContractFactory(
       name: "XfolioToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.XfolioToken__factory>;
@@ -80,6 +100,10 @@ declare module "hardhat/types/runtime" {
       name: "Xvault",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Xvault__factory>;
+    getContractFactory(
+      name: "XvaultUpgradeable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.XvaultUpgradeable__factory>;
 
     // default types
     getContractFactory(
