@@ -22,7 +22,7 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 interface TimeLockInterface extends ethers.utils.Interface {
   functions: {
     "deposit(address,uint256,uint256)": FunctionFragment;
-    "lockBoxStructs(uint256)": FunctionFragment;
+    "lockBoxDictionary(address,uint256)": FunctionFragment;
     "token()": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
@@ -32,8 +32,8 @@ interface TimeLockInterface extends ethers.utils.Interface {
     values: [string, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "lockBoxStructs",
-    values: [BigNumberish]
+    functionFragment: "lockBoxDictionary",
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
@@ -43,7 +43,7 @@ interface TimeLockInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "lockBoxStructs",
+    functionFragment: "lockBoxDictionary",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
@@ -109,15 +109,12 @@ export class TimeLock extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    lockBoxStructs(
-      arg0: BigNumberish,
+    lockBoxDictionary(
+      arg0: string,
+      arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [string, BigNumber, BigNumber] & {
-        beneficiary: string;
-        balance: BigNumber;
-        releaseTime: BigNumber;
-      }
+      [BigNumber, BigNumber] & { balance: BigNumber; releaseTime: BigNumber }
     >;
 
     token(overrides?: CallOverrides): Promise<[string]>;
@@ -135,15 +132,12 @@ export class TimeLock extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  lockBoxStructs(
-    arg0: BigNumberish,
+  lockBoxDictionary(
+    arg0: string,
+    arg1: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [string, BigNumber, BigNumber] & {
-      beneficiary: string;
-      balance: BigNumber;
-      releaseTime: BigNumber;
-    }
+    [BigNumber, BigNumber] & { balance: BigNumber; releaseTime: BigNumber }
   >;
 
   token(overrides?: CallOverrides): Promise<string>;
@@ -161,15 +155,12 @@ export class TimeLock extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    lockBoxStructs(
-      arg0: BigNumberish,
+    lockBoxDictionary(
+      arg0: string,
+      arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [string, BigNumber, BigNumber] & {
-        beneficiary: string;
-        balance: BigNumber;
-        releaseTime: BigNumber;
-      }
+      [BigNumber, BigNumber] & { balance: BigNumber; releaseTime: BigNumber }
     >;
 
     token(overrides?: CallOverrides): Promise<string>;
@@ -216,8 +207,9 @@ export class TimeLock extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    lockBoxStructs(
-      arg0: BigNumberish,
+    lockBoxDictionary(
+      arg0: string,
+      arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -237,8 +229,9 @@ export class TimeLock extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    lockBoxStructs(
-      arg0: BigNumberish,
+    lockBoxDictionary(
+      arg0: string,
+      arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

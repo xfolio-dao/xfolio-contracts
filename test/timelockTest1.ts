@@ -39,4 +39,21 @@ describe("Xfolio Timelock", async () => {
         await timeLock.deposit(benAddress,amount,period);
         await expect(timeLock.connect(accounts[1]).withdraw(0)).to.be.reverted;
     })
+
+    it("Pays out the amount to the beneficiary", async () => {
+        const amount = BigNumber.from(1000);
+        const period = BigNumber.from(1631899896); //now
+        await xfolioToken.increaseAllowance(timeLock.address,amount);
+        await timeLock.deposit(benAddress,amount,period);
+        await timeLock.connect(accounts[1]).withdraw(0);
+        expect(await xfolioToken.balanceOf(benAddress)).to.equal(1000);
+    })
+w
+    it("Reverts if an address with no box calls withdraw()", async () => {
+        const amount = BigNumber.from(1000);
+        const period = BigNumber.from(1631899896); //now
+        await xfolioToken.increaseAllowance(timeLock.address,amount);
+        await timeLock.deposit(benAddress,amount,period);
+        await expect(timeLock.connect(accounts[2]).withdraw(0)).to.be.reverted;
+    })
 })
