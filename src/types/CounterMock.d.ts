@@ -12,6 +12,7 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -19,42 +20,42 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface IERC20PermitInterface extends ethers.utils.Interface {
+interface CounterMockInterface extends ethers.utils.Interface {
   functions: {
-    "DOMAIN_SEPARATOR()": FunctionFragment;
-    "nonces(address)": FunctionFragment;
-    "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
+    "endpoint()": FunctionFragment;
+    "incrementCounter(uint16,bytes)": FunctionFragment;
+    "lzReceive(uint16,bytes,uint64,bytes)": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "endpoint", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "DOMAIN_SEPARATOR",
-    values?: undefined
+    functionFragment: "incrementCounter",
+    values: [BigNumberish, BytesLike]
   ): string;
-  encodeFunctionData(functionFragment: "nonces", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "permit",
-    values: [
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike
-    ]
+    functionFragment: "lzReceive",
+    values: [BigNumberish, BytesLike, BigNumberish, BytesLike]
   ): string;
 
+  decodeFunctionResult(functionFragment: "endpoint", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "DOMAIN_SEPARATOR",
+    functionFragment: "incrementCounter",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lzReceive", data: BytesLike): Result;
 
-  events: {};
+  events: {
+    "MessageReceived(uint256)": EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: "MessageReceived"): EventFragment;
 }
 
-export class IERC20Permit extends BaseContract {
+export type MessageReceivedEvent = TypedEvent<
+  [BigNumber] & { _messageCounter: BigNumber }
+>;
+
+export class CounterMock extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -95,92 +96,102 @@ export class IERC20Permit extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: IERC20PermitInterface;
+  interface: CounterMockInterface;
 
   functions: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>;
+    endpoint(overrides?: CallOverrides): Promise<[string]>;
 
-    nonces(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    incrementCounter(
+      _dstChainId: BigNumberish,
+      _dstCounterMockAddress: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    permit(
-      owner: string,
-      spender: string,
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
+    lzReceive(
+      arg0: BigNumberish,
+      _fromAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+  endpoint(overrides?: CallOverrides): Promise<string>;
 
-  nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
+  incrementCounter(
+    _dstChainId: BigNumberish,
+    _dstCounterMockAddress: BytesLike,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  permit(
-    owner: string,
-    spender: string,
-    value: BigNumberish,
-    deadline: BigNumberish,
-    v: BigNumberish,
-    r: BytesLike,
-    s: BytesLike,
+  lzReceive(
+    arg0: BigNumberish,
+    _fromAddress: BytesLike,
+    _nonce: BigNumberish,
+    _payload: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+    endpoint(overrides?: CallOverrides): Promise<string>;
 
-    nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
+    incrementCounter(
+      _dstChainId: BigNumberish,
+      _dstCounterMockAddress: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    permit(
-      owner: string,
-      spender: string,
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
+    lzReceive(
+      arg0: BigNumberish,
+      _fromAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
-  filters: {};
+  filters: {
+    "MessageReceived(uint256)"(
+      _messageCounter?: null
+    ): TypedEventFilter<[BigNumber], { _messageCounter: BigNumber }>;
+
+    MessageReceived(
+      _messageCounter?: null
+    ): TypedEventFilter<[BigNumber], { _messageCounter: BigNumber }>;
+  };
 
   estimateGas: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>;
+    endpoint(overrides?: CallOverrides): Promise<BigNumber>;
 
-    nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
+    incrementCounter(
+      _dstChainId: BigNumberish,
+      _dstCounterMockAddress: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    permit(
-      owner: string,
-      spender: string,
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
+    lzReceive(
+      arg0: BigNumberish,
+      _fromAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    endpoint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    nonces(
-      owner: string,
-      overrides?: CallOverrides
+    incrementCounter(
+      _dstChainId: BigNumberish,
+      _dstCounterMockAddress: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    permit(
-      owner: string,
-      spender: string,
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
+    lzReceive(
+      arg0: BigNumberish,
+      _fromAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

@@ -19,25 +19,22 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface GreeterInterface extends ethers.utils.Interface {
+interface ILayerZeroReceiverInterface extends ethers.utils.Interface {
   functions: {
-    "greet()": FunctionFragment;
-    "setGreeting(string)": FunctionFragment;
+    "lzReceive(uint16,bytes,uint64,bytes)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "greet", values?: undefined): string;
-  encodeFunctionData(functionFragment: "setGreeting", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "lzReceive",
+    values: [BigNumberish, BytesLike, BigNumberish, BytesLike]
+  ): string;
 
-  decodeFunctionResult(functionFragment: "greet", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setGreeting",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "lzReceive", data: BytesLike): Result;
 
   events: {};
 }
 
-export class Greeter extends BaseContract {
+export class ILayerZeroReceiver extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -78,46 +75,54 @@ export class Greeter extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: GreeterInterface;
+  interface: ILayerZeroReceiverInterface;
 
   functions: {
-    greet(overrides?: CallOverrides): Promise<[string]>;
-
-    setGreeting(
-      _greeting: string,
+    lzReceive(
+      _srcChainId: BigNumberish,
+      _srcAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  greet(overrides?: CallOverrides): Promise<string>;
-
-  setGreeting(
-    _greeting: string,
+  lzReceive(
+    _srcChainId: BigNumberish,
+    _srcAddress: BytesLike,
+    _nonce: BigNumberish,
+    _payload: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    greet(overrides?: CallOverrides): Promise<string>;
-
-    setGreeting(_greeting: string, overrides?: CallOverrides): Promise<void>;
+    lzReceive(
+      _srcChainId: BigNumberish,
+      _srcAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
-    greet(overrides?: CallOverrides): Promise<BigNumber>;
-
-    setGreeting(
-      _greeting: string,
+    lzReceive(
+      _srcChainId: BigNumberish,
+      _srcAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    greet(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    setGreeting(
-      _greeting: string,
+    lzReceive(
+      _srcChainId: BigNumberish,
+      _srcAddress: BytesLike,
+      _nonce: BigNumberish,
+      _payload: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

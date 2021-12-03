@@ -57,9 +57,21 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC165__factory>;
     getContractFactory(
+      name: "CounterMock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CounterMock__factory>;
+    getContractFactory(
       name: "Greeter",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Greeter__factory>;
+    getContractFactory(
+      name: "ILayerZeroEndpoint",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ILayerZeroEndpoint__factory>;
+    getContractFactory(
+      name: "ILayerZeroReceiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ILayerZeroReceiver__factory>;
     getContractFactory(
       name: "SampleUSDC",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -81,6 +93,107 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Xvault__factory>;
 
+    getContractAt(
+      name: "AccessControl",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.AccessControl>;
+    getContractAt(
+      name: "IAccessControl",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IAccessControl>;
+    getContractAt(
+      name: "ERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20>;
+    getContractAt(
+      name: "ERC20Permit",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Permit>;
+    getContractAt(
+      name: "IERC20Permit",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Permit>;
+    getContractAt(
+      name: "ERC20Burnable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Burnable>;
+    getContractAt(
+      name: "ERC20Votes",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Votes>;
+    getContractAt(
+      name: "IERC20Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Metadata>;
+    getContractAt(
+      name: "IERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20>;
+    getContractAt(
+      name: "ERC165",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC165>;
+    getContractAt(
+      name: "IERC165",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC165>;
+    getContractAt(
+      name: "CounterMock",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CounterMock>;
+    getContractAt(
+      name: "Greeter",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Greeter>;
+    getContractAt(
+      name: "ILayerZeroEndpoint",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ILayerZeroEndpoint>;
+    getContractAt(
+      name: "ILayerZeroReceiver",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ILayerZeroReceiver>;
+    getContractAt(
+      name: "SampleUSDC",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SampleUSDC>;
+    getContractAt(
+      name: "XfolioToken",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.XfolioToken>;
+    getContractAt(
+      name: "Xpresale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Xpresale>;
+    getContractAt(
+      name: "XpresaleUSDC",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.XpresaleUSDC>;
+    getContractAt(
+      name: "Xvault",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Xvault>;
+
     // default types
     getContractFactory(
       name: string,
@@ -91,5 +204,10 @@ declare module "hardhat/types/runtime" {
       bytecode: ethers.utils.BytesLike,
       signer?: ethers.Signer
     ): Promise<ethers.ContractFactory>;
+    getContractAt(
+      nameOrAbi: string | any[],
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<ethers.Contract>;
   }
 }

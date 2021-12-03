@@ -1,10 +1,9 @@
-import { task, HardhatUserConfig } from "hardhat/config";
-import "@nomiclabs/hardhat-waffle";
+import 'dotenv/config'
+import { task, HardhatUserConfig } from 'hardhat/config'
+import '@nomiclabs/hardhat-waffle'
 import '@typechain/hardhat'
 import '@nomiclabs/hardhat-ethers'
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (args, hre) => {
   const accounts = await hre.ethers.getSigners();
 
@@ -12,14 +11,10 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
     const accountBalance = await account.getBalance();
     console.log(account.address, hre.ethers.utils.formatEther(accountBalance));
   }
-});
+})
 
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
+const PRIVATE_KEY = process.env.PRIVATE_KEY || 'your private key'
+const ROPSTEN_API_KEY = process.env.ROPSTEN_API_KEY || 'your rospten api key'
 const config: HardhatUserConfig = {
   // solidity: "0.8.4",
   typechain: {
@@ -34,10 +29,23 @@ const config: HardhatUserConfig = {
         version: "0.8.4"
       },
       {
+        version: "0.7.6"
+      },
+      {
         version: "0.6.6",
         settings: {},
       },
     ]
+  },
+  networks: {
+    ropsten: {
+        url: ROPSTEN_API_KEY,
+        accounts: [PRIVATE_KEY]
+    },
+    fuji : {
+        url: "https://api.avax-test.network/ext/bc/C/rpc",
+        accounts: [PRIVATE_KEY]
+    }
   }
 }
 
