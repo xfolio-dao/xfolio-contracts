@@ -14,6 +14,7 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
 })
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || 'your private key'
+const ROPSTEN_API_KEY = process.env.ROPSTEN_API_KEY || 'your rospten api key'
 const config: HardhatUserConfig = {
   // solidity: "0.8.4",
   typechain: {
@@ -38,7 +39,7 @@ const config: HardhatUserConfig = {
   },
   networks: {
     ropsten: {
-        url: "https://eth-ropsten.alchemyapi.io/v2/6o4Rgl6ZryTuFcg_kD0Q52YSqgBqXFmK",
+        url: ROPSTEN_API_KEY,
         accounts: [PRIVATE_KEY]
     },
     fuji : {
