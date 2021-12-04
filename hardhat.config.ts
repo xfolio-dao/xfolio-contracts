@@ -1,22 +1,16 @@
 import 'dotenv/config'
-import { task, HardhatUserConfig } from 'hardhat/config'
 import '@nomiclabs/hardhat-waffle'
 import '@typechain/hardhat'
 import '@nomiclabs/hardhat-ethers'
-
-task("accounts", "Prints the list of accounts", async (args, hre) => {
-  const accounts = await hre.ethers.getSigners();
-
-  for (const account of accounts) {
-    const accountBalance = await account.getBalance();
-    console.log(account.address, hre.ethers.utils.formatEther(accountBalance));
-  }
-})
+import { HardhatUserConfig } from 'hardhat/config'
+import './tasks/deployMultiChainToken'
+import './tasks/sendMultiChainTokens'
+import './tasks/getMultiChainTokenBalance'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || 'your private key'
 const ROPSTEN_API_KEY = process.env.ROPSTEN_API_KEY || 'your rospten api key'
+
 const config: HardhatUserConfig = {
-  // solidity: "0.8.4",
   typechain: {
     outDir: 'src/types',
     target: 'ethers-v5',
