@@ -6,9 +6,14 @@ import { HardhatUserConfig } from 'hardhat/config'
 import './tasks/deployMultiChainToken'
 import './tasks/sendMultiChainTokens'
 import './tasks/getMultiChainTokenBalance'
+import './tasks/deployMultiChainNFT'
+import './tasks/mintMultiChainNFT'
+import './tasks/sendMultiChainNFT'
+import './tasks/getApprovalMultiChainNFT'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || 'your private key'
-const ROPSTEN_API_KEY = process.env.ROPSTEN_API_KEY || 'your rospten api key'
+const ROPSTEN_API_KEY = process.env.ROPSTEN_API_KEY || 'your ropsten api key'
+const RINKEBY_API_KEY = process.env.RINKEBY_API_KEY || 'your rinkeby api key'
 
 const config: HardhatUserConfig = {
   typechain: {
@@ -36,9 +41,17 @@ const config: HardhatUserConfig = {
         url: ROPSTEN_API_KEY,
         accounts: [PRIVATE_KEY]
     },
+    rinkeby: {
+        url: RINKEBY_API_KEY,
+        accounts: [PRIVATE_KEY],
+        gas: 2100000,
+        gasPrice: 25000000001
+    },
     fuji : {
         url: "https://api.avax-test.network/ext/bc/C/rpc",
-        accounts: [PRIVATE_KEY]
+        accounts: [PRIVATE_KEY],
+        gas: 2100000,
+        gasPrice: 25000000001
     }
   }
 }
