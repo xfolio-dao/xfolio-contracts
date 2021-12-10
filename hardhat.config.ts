@@ -10,6 +10,8 @@ import './tasks/deployMultiChainNFT'
 import './tasks/mintMultiChainNFT'
 import './tasks/sendMultiChainNFT'
 import './tasks/getApprovalMultiChainNFT'
+import './tasks/deployPingPong'
+import './tasks/pingPong'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || 'your private key'
 const ROPSTEN_API_KEY = process.env.ROPSTEN_API_KEY || 'your ropsten api key'

@@ -1,3 +1,3 @@
-export const ropstenEndpoint = '0xfeBE4c839EFA9f506C092a32fD0BB546B76A1d38'
-export const fujiEndpoint = '0x489fd72653924E25De141e9B1d1c2591A1150602'
-export const rinkebyEndpoint = '0x6909D5b4f248E99584C38B7fD103E044Beeb9959'
+export const ropstenEndpoint = '0xbda3EdB7B52A807B88f50fF021174ce878f559f7'
+export const fujiEndpoint = '0x3154cba0BdE9B45659207C980cF0B7d1BED272f8'
+export const rinkebyEndpoint = '0x42A1F7C746E06f40D7D9D4cA5e596d52fDc647e6'
