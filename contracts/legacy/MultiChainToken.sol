@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 pragma solidity ^0.7.6;
 
-import "./interfaces/ILayerZeroReceiver.sol";
-import "./interfaces/ILayerZeroEndpoint.sol";
+import "../interfaces/ILayerZeroReceiverLegacy.sol";
+import "../interfaces/ILayerZeroEndpointLegacy.sol";
 import "@openzeppelin/contracts-3/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-3/token/ERC20/ERC20.sol";
 
@@ -12,13 +12,13 @@ import "@openzeppelin/contracts-3/token/ERC20/ERC20.sol";
 //  1. burn local tokens (logic in sendTokens)
 //  2. send a LayerZero message to the destination MultiChainToken address on another chain
 //  3. mint tokens on destination (logic in lzReceive)
-contract MultiChainToken is ERC20, ILayerZeroReceiver {
+contract MultiChainToken is ERC20, ILayerZeroReceiverLegacy {
 
-    ILayerZeroEndpoint public endpoint;
+    ILayerZeroEndpointLegacy public endpoint;
 
     // constructor mints tokens to the deployer
     constructor(string memory name_, string memory symbol_, address _layerZeroEndpoint) ERC20(name_, symbol_){
-        endpoint = ILayerZeroEndpoint(_layerZeroEndpoint);
+        endpoint = ILayerZeroEndpointLegacy(_layerZeroEndpoint);
         _mint(msg.sender, 100 * 10**18); // mint the deployer 100 tokens.
     }
 

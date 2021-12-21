@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 pragma solidity ^0.7.6;
 
-import "./interfaces/ILayerZeroReceiver.sol";
-import "./interfaces/ILayerZeroEndpoint.sol";
+import "../interfaces/ILayerZeroReceiverLegacy.sol";
+import "../interfaces/ILayerZeroEndpointLegacy.sol";
 
-contract PingPong is ILayerZeroReceiver {
+contract PingPong is ILayerZeroReceiverLegacy {
     // the LayerZero endpoint calls .send() to send a cross chain message
-    ILayerZeroEndpoint public endpoint;
+    ILayerZeroEndpointLegacy public endpoint;
     // whether PingPong is ping-ponging
     bool public pingsEnabled;
     // event emitted every ping() to keep track of consecutive pings count
@@ -15,7 +15,7 @@ contract PingPong is ILayerZeroReceiver {
     // constructor requires the LayerZero endpoint for this chain
     constructor(address _layerZeroEndpoint){
         pingsEnabled = true;
-        endpoint = ILayerZeroEndpoint(_layerZeroEndpoint);
+        endpoint = ILayerZeroEndpointLegacy(_layerZeroEndpoint);
     }
 
     // disable ping-ponging

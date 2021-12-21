@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 pragma solidity ^0.7.6;
 
-import "./interfaces/ILayerZeroReceiver.sol";
-import "./interfaces/ILayerZeroEndpoint.sol";
+import "../interfaces/ILayerZeroReceiverLegacy.sol";
+import "../interfaces/ILayerZeroEndpointLegacy.sol";
 import "@openzeppelin/contracts-3/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts-3/access/AccessControl.sol";
 import "@openzeppelin/contracts-3/token/ERC1155/ERC1155Burnable.sol";
 
-contract MultiChainGame1155 is ERC1155, AccessControl, ERC1155Burnable, ILayerZeroReceiver {
+contract MultiChainGame1155 is ERC1155, AccessControl, ERC1155Burnable, ILayerZeroReceiverLegacy {
     modifier onlyRole(bytes32 role) {
         hasRole(role, _msgSender());
         _;
@@ -17,10 +17,10 @@ contract MultiChainGame1155 is ERC1155, AccessControl, ERC1155Burnable, ILayerZe
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     uint256 public constant SKELETON = 0;
     uint256 public constant BANDIT = 1;
-    ILayerZeroEndpoint public endpoint;
+    ILayerZeroEndpointLegacy public endpoint;
 
-    constructor(address _layerZeroEndpoint) public ERC1155("https://gateway.pinata.cloud/ipfs/QmSPn47PQZdKaaFYB9wAHL7DmVDijozS5Ncg6rAnSw61RJ/{id}.json") {
-        endpoint = ILayerZeroEndpoint(_layerZeroEndpoint);
+    constructor(address _layerZeroEndpoint) public ERC1155("https://gateway.pinata.cloud/ipfs/QmUupFMbki6Fpwym3TECDu2Y9LR9YcHFRPQ8yMiPMbWYw5/{id}.json") {
+        endpoint = ILayerZeroEndpointLegacy(_layerZeroEndpoint);
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(URI_SETTER_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
@@ -64,13 +64,13 @@ contract MultiChainGame1155 is ERC1155, AccessControl, ERC1155Burnable, ILayerZe
         (address toAddr, uint256[] memory ids, uint256[] memory amounts) = abi.decode(_payload, (address, uint256[], uint256[]));
 
         // mint the NFT back into existence, to the toAddr from the message payload with the same uri
-        mintBatch(toAddr, ids, amounts, "");
+        mintBatch(toAddr, ids, amounts, bytes(""));
     }
 
     function mint(address account, uint256 id, uint256 amount, bytes memory data)
         public
         onlyRole(MINTER_ROLE)
-    {
+    { 
         _mint(account, id, amount, data);
     }
 

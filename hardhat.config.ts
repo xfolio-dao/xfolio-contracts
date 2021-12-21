@@ -15,6 +15,7 @@ import './tasks/pingPong'
 import './tasks/deployMultiChainGame1155'
 import './tasks/mintMultiChainGame1155'
 import './tasks/getMultiChainGameBalance'
+import './tasks/safeBatchSendMultiChainGame'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || 'your private key'
 const ROPSTEN_API_KEY = process.env.ROPSTEN_API_KEY || 'your ropsten api key'
@@ -44,7 +45,9 @@ const config: HardhatUserConfig = {
   networks: {
     ropsten: {
         url: ROPSTEN_API_KEY,
-        accounts: [PRIVATE_KEY]
+        accounts: [PRIVATE_KEY],
+        gas: 2100000,
+        gasPrice: 25000000001
     },
     rinkeby: {
         url: RINKEBY_API_KEY,

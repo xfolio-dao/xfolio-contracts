@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-only
 pragma solidity ^0.7.6;
-import "./interfaces/ILayerZeroReceiver.sol";
-import "./interfaces/ILayerZeroEndpoint.sol";
-contract CounterMock is ILayerZeroReceiver {
+import "../interfaces/ILayerZeroReceiverLegacy.sol";
+import "../interfaces/ILayerZeroEndpointLegacy.sol";
+contract CounterMock is ILayerZeroReceiverLegacy {
     event MessageReceived(uint _messageCounter);
     // keep track of how ma ny messages have been received from other chains
     uint messageCounter; 
     // required: the LayerZero endpoint which is passed in the constructor
-    ILayerZeroEndpoint public endpoint;    
+    ILayerZeroEndpointLegacy public endpoint;    
     // required: the LayerZero endpoint
     constructor(address _endpoint)  {
-        endpoint = ILayerZeroEndpoint(_endpoint);
+        endpoint = ILayerZeroEndpointLegacy(_endpoint);
     }
     // overrides lzReceive function in ILayerZeroReceiver.
     // automatically invoked on the receiving chain after the source chain calls endpoint.send(...)

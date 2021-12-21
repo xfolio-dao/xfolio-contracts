@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 pragma solidity ^0.7.6;
 
-import "./interfaces/ILayerZeroReceiver.sol";
-import "./interfaces/ILayerZeroEndpoint.sol";
+import "../interfaces/ILayerZeroReceiverLegacy.sol";
+import "../interfaces/ILayerZeroEndpointLegacy.sol";
 import "@openzeppelin/contracts-3/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts-3/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts-3/token/ERC721/IERC721Metadata.sol";
 import "@openzeppelin/contracts-3/access/AccessControl.sol";
 import "@openzeppelin/contracts-3/utils/Counters.sol";
 
-contract MultiChainNFT is ERC721, AccessControl, ILayerZeroReceiver {
+contract MultiChainNFT is ERC721, AccessControl, ILayerZeroReceiverLegacy {
     modifier onlyRole(bytes32 role) {
         hasRole(role, _msgSender());
         _;
@@ -19,10 +19,10 @@ contract MultiChainNFT is ERC721, AccessControl, ILayerZeroReceiver {
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     Counters.Counter private _tokenIdCounter;
-    ILayerZeroEndpoint public endpoint;
+    ILayerZeroEndpointLegacy public endpoint;
 
     constructor(string memory name_, string memory symbol_, address _layerZeroEndpoint) ERC721(name_, symbol_) {
-        endpoint = ILayerZeroEndpoint(_layerZeroEndpoint);
+        endpoint = ILayerZeroEndpointLegacy(_layerZeroEndpoint);
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(DEFAULT_ADMIN_ROLE, address(this));
         _setupRole(MINTER_ROLE, address(endpoint));
