@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 contract MyToken is AccessControl, ERC1155Supply, ILayerZeroReceiver {
     bytes32 public constant URI_SETTER_ROLE = keccak256("URI_SETTER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-
+    
     ILayerZeroEndpoint public endpoint;
 
     constructor(address _layerZeroEndpoint) ERC1155("") {
